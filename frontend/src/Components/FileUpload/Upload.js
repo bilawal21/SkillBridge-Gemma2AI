@@ -1,9 +1,9 @@
 import React from 'react'
 import '../../Main.css'
-import { Button, Row, Col } from 'react-bootstrap'
+import { Button, Row, Col, Form } from 'react-bootstrap'
 
 
-const Upload = ({ feature1, feature2, feature3, feature4 }) => {
+const Upload = ({ feature1, feature2, feature3, feature4, handleFileChange, handleSubmit }) => {
 
     return (
         <div className="section-left custom-shadow">
@@ -12,8 +12,13 @@ const Upload = ({ feature1, feature2, feature3, feature4 }) => {
             <div className='upload-container' >
                 <div className='upload' >
                     <div className='upload-icon-and-button' >
-                        <img src='/submit.png' width={150} height={150} />
-                        <Button className='submit-btn btn-shadow'>Upload Resume</Button>
+                        <img src='/submit.png' width={100} height={100} />
+                        <Form onSubmit={handleSubmit} className='d-flex flex-column justify-content' >
+                            <Form.Group controlId="formFile" className="mb-1">
+                                <Form.Control type="file" onChange={handleFileChange} />
+                            </Form.Group>
+                            <Button className='submit-btn btn-shadow mb-3' type='submit'>Upload Resume</Button>
+                        </Form>
                     </div>
                     <div className='upload-instructions' >
                         <ul>
@@ -22,7 +27,6 @@ const Upload = ({ feature1, feature2, feature3, feature4 }) => {
                         </ul>
 
                     </div>
-                    { }
                     <div >
                         <Row className="feature-choice" >
                             <Col xs={6} className="mb-3">
