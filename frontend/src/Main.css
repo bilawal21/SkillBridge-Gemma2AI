@@ -124,7 +124,7 @@ body {
 .upload {
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: flex-end;
   align-items: center;
   height: 90%;
   width: 90%;
@@ -135,7 +135,8 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 30vh;
+  align-items: center;
+  /* height: 30vh; */
   cursor: pointer;
 }
 
