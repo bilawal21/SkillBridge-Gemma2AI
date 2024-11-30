@@ -1,0 +1,155 @@
+body {
+  /* height: 100vh; */
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+  background: linear-gradient(to right, #3a80ba 1px, transparent 1px),
+    linear-gradient(to bottom, #3a80ba 1px, transparent 1px);
+  background-size: 25px 25px;
+  background-color: white; /* Dark blue background */
+  color: black; /* Light text for contrast */
+}
+
+.custom-shadow {
+  box-shadow: -12px 12px 0px -5px rgba(68, 68, 68, 1);
+  -webkit-box-shadow: -12px 12px 0px -5px rgba(68, 68, 68, 1);
+  -moz-box-shadow: -12px 12px 0px -5px rgba(68, 68, 68, 1);
+}
+
+.btn-shadow {
+  box-shadow: -5px 5px 0px 0px rgba(68, 68, 68, 1);
+  -webkit-box-shadow: -5px 5px 0px 0px rgba(68, 68, 68, 1);
+  -moz-box-shadow: -5px 5px 0px 0px rgba(68, 68, 68, 1);
+}
+
+.main-outside-div {
+  background-color: transparent;
+  padding: 15px;
+}
+
+.boot-nav {
+  /* border-radius: 15px; */
+  border: 3px solid black;
+}
+
+.grid-container {
+  /* width: 100vw; */
+  margin: 20px;
+  height: 82vh;
+}
+
+.section-left {
+  background-color: white;
+  width: 100%;
+  /* border-radius: 15px; */
+  padding: 10px;
+  border: 3px solid black;
+}
+
+.section-left h3 {
+  text-align: center;
+}
+
+.section-right {
+  background-color: white;
+  width: 100%;
+  /* border-radius: 15px; */
+  padding: 10px;
+  border: 3px solid black;
+}
+
+.section-right h3 {
+  text-align: center;
+}
+
+
+.llm-container {
+  position: relative;
+  height: 75vh;
+  padding: 10px;
+  /* overflow: auto; */
+  width: 100%;
+  /* border: 2px solid black; */
+}
+
+.empty-response-container {
+  height: 70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.empty-response {
+  border: 3px solid black;
+  padding: 30px;
+}
+
+.message-container {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 3px solid black;
+}
+
+.message-container img {
+  margin-right: 5px;
+}
+
+.llm-responses {
+  position: relative;
+  overflow: auto;
+  height: 65vh;
+  width: 100%;
+}
+
+.input-field {
+  position: absolute;
+  bottom: 0px;
+  width: 98%;
+}
+
+.input-field form {
+  width: 100%;
+}
+
+.upload-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 75vh;
+}
+
+.upload {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 90%;
+  width: 90%;
+  border: 3px solid black;
+}
+
+.upload-icon-and-button {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 30vh;
+  cursor: pointer;
+}
+
+.submit-btn {
+  background-color: #3a80ba;
+  padding: 10px 20px;
+  border-radius: 0px;
+}
+
+.upload-instructions {
+  padding: 10px;
+  text-align: justify;
+}
+
+.feature-choice {
+  padding: 10px;
+}
