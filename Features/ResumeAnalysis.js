@@ -1,10 +1,9 @@
 const PlainTextConversion = require('../utilities/PlainTextConversion');
 const GetGemmaResponse = require('../utilities/GemmaResponse');
 
-
 exports.analysisControler = async (req, res) => {
     try{
-        let resumePath = req.file.path;
+        let resumePath = 'uploads/resume.pdf';
         let resume = await PlainTextConversion(resumePath);
         
         const prompt1 = `Here is the detailed resume: ${resume}. Based on the skills mentioned, please identify any skill gaps the candidate has. Provide a list of related missing or underdeveloped skills that could improve their qualifications (Note. Only add related to mentioned skills on resume, don't add every skill). Include suggestions for learning resources and platforms where the candidate can improve these skills. Be sure to reference specific skills from the resume.`
@@ -17,8 +16,6 @@ exports.analysisControler = async (req, res) => {
         const RecommendedCertificates = await GetGemmaResponse.main(prompt3);
         const ReleventProjects = await GetGemmaResponse.main(prompt4);
         
-        fs.unlinkSync(resumePath);
-
         return res.json({
             SkillsGaps,
             RecommendedCourse,
