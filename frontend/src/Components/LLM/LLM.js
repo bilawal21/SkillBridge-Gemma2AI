@@ -1,11 +1,13 @@
-import { useState } from 'react'
-import { Form, InputGroup, Button, Col } from 'react-bootstrap';
+import { useEffect, useState } from 'react'
+import { Form, InputGroup, Button, Carousel } from 'react-bootstrap';
 import '../../Main.css'
 import { FaPaperPlane } from 'react-icons/fa';
+import Spinner from 'react-bootstrap/Spinner';
+import ReactMarkdown from 'react-markdown';
+import CustomCarousel from './CustomCarousel';
 
 const messages = [
-    "Welcome to SkillBridge! I'm excited to help you enhance your skills and explore new opportunities. What would you like to start with?",
-    "It's great that you're here! SkillBridge offers a variety of resources to help you level up your career. Let me know how I can assist you in achieving your goals.",
+    "Welcome to SkillBridge! <br/><br/><br/><br/> I'm excited to help you enhance your skills and explore new opportunities. What would you like to start with? <br /><br /> It's great that you're here! SkillBridge offers a variety of resources to help you level up your career. Let me know how I can assist you in achieving your goals.",
     "Joining SkillBridge means being part of a community that thrives on learning and growing together. Whether you're looking to build new skills or advance in your career, you’re in the right place. How can I assist you today?",
     "SkillBridge is more than just a platform; it's a place where your talents can truly shine. With expert guidance and a rich set of resources, you can unlock opportunities that align with your professional aspirations. What area are you most interested in?",
     "If you're looking to take your career to the next level, you're in the right spot. SkillBridge provides cutting-edge learning tools and personalized guidance to help you reach your full potential. What’s your first goal?",
@@ -16,14 +18,14 @@ const messages = [
     "At SkillBridge, we understand that learning is a lifelong process. Our resources are designed to meet you wherever you are in your professional journey. With tailored learning paths and expert mentorship, you'll be on the fast track to achieving your goals. What do you hope to accomplish?"
 ];
 
-const LLM = ({ showTextField }) => {
+const LLM = ({ showTextField, responses, showSpinner, singleResponse }) => {
 
     const [inputValue, setInputValue] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
         alert(`Submitted: ${inputValue}`);
-        setInputValue(''); // Clear the input after submit
+        setInputValue('');
     };
 
     return (
@@ -31,22 +33,52 @@ const LLM = ({ showTextField }) => {
             {/* Add content for the second section */}
             <h3>SKillBridge</h3>
             <div className='llm-container' >
-                {messages.length === 0 ? (
-                    <div
-                        className='empty-response-container'
-                    >
-                        <div className='empty-response custom-shadow' >(LLM response will be displayed here...)</div>
-                    </div>
+                {singleResponse?.length === 0 ? (
+                    showSpinner ? (<div className='d-flex justify-content-start align-items-center' ><Spinner animation="grow" />Loading...</div>)
+                        : (<CustomCarousel />)
                 ) : (
                     <>
                         <div className='llm-responses p-2' >
-                            {messages.map((msg, index) => (
+                            {singleResponse?.Type === "Analysis" && <div className="message-container custom-shadow mb-3">
+                                <img src="/logoBlue.png" width={30} height={30} alt="Logo" />
+                                <div className='message-container-text' >
+                                    <h3>SkillsGaps: </h3>
+                                    <ReactMarkdown >{singleResponse.SkillsGaps}</ReactMarkdown>
+                                    <br></br>
+                                    <h3>RecommendedCourse: </h3>
+                                    <ReactMarkdown >{singleResponse.RecommendedCourse}</ReactMarkdown>
+                                    <br></br>
+                                    <h3>RecommendedCertificates: </h3>
+                                    <ReactMarkdown >{singleResponse.RecommendedCertificates}</ReactMarkdown>
+                                    <br></br>
+                                    <h3>ReleventProjects: </h3>
+                                    <ReactMarkdown >{singleResponse.ReleventProjects}</ReactMarkdown>
+                                </div>
+                            </div>}
+                            {singleResponse?.Type === 'Career' && <div className="message-container custom-shadow mb-3">
+                                <img src="/logoBlue.png" width={30} height={30} alt="Logo" />
+                                <div className='message-container-text' >
+
+                                    <h3>Recommended Career Path:</h3>
+                                    <ReactMarkdown  >{singleResponse.recommendedPaths}</ReactMarkdown>
+                                </div>
+                            </div>}
+                            {singleResponse?.Type === "Recommend" && <div className="message-container custom-shadow mb-3">
+                                <img src="/logoBlue.png" width={30} height={30} alt="Logo" />
+                                <div className='message-container-text' >
+                                    <h3>Recommended Skills to learn</h3>
+                                    <ReactMarkdown>{singleResponse.SkillsRoadMap}</ReactMarkdown>
+
+                                </div>
+                            </div>}
+
+                            {responses.map((response, index) => (
                                 <div className="message-container custom-shadow mb-3" key={index}>
                                     <img src="/logoBlue.png" width={30} height={30} alt="Logo" />
-                                    <h5>{msg}</h5>
                                 </div>
                             ))}
                         </div>
+                        {showSpinner && <div className='d-flex justify-content-start align-items-center' ><Spinner animation="grow" />Loading...</div>}
                         {showTextField && <div className='input-field' >
                             < Form onSubmit={handleSubmit}>
                                 <InputGroup className="mb-3">

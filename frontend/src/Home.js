@@ -4,27 +4,71 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './Main.css'
 import LLM from './Components/LLM/LLM';
 import Upload from './Components/FileUpload/Upload';
+import { endpoint } from './utils/Endpoint';
+import axios from 'axios'
 
 const Home = () => {
 
     const [selectedFile, setSelectedFile] = useState(null);
     const [showTextField, setShowTextField] = useState(false)
+    const [btnDisabled, setBtnDisabled] = useState(true)
+    const [responses, setResponses] = useState([])
+    const [singleResponse, setSingleResponse] = useState([])
+    const [showSpinner, setShowSpinner] = useState(false)
 
+    const Analysis = async () => {
+        setShowTextField(false)
+        setShowSpinner(true)
 
-    const feature1 = () => {
-        setShowTextField(true)
+        console.log("SPINNNNN: ", showSpinner)
+        try {
+            await axios.post(`${endpoint}/ResumeAnalysis/getanalysis`).then((response) => {
+                console.log("RESPONSE: ", response.data)
+                // setResponses((prev) => [...prev, response.data])
+                setSingleResponse(response.data)
+            }).finally(() => {
+                setShowSpinner(false)
+            })
+        } catch (error) {
+            setShowSpinner(false)
+            console.log("There was an error while getting an analysis on the resume")
+        }
     }
 
     const feature2 = () => {
-        setShowTextField(false)
+        setShowTextField(true)
     }
 
-    const feature3 = () => {
+    const Career = async () => {
         setShowTextField(false)
+        setShowSpinner(true)
+        try {
+            await axios.post(`${endpoint}/ResumeAnalysis/suggestCareerPaths`).then((response) => {
+                console.log("CAREER: ", response.data)
+                setShowSpinner(false)
+                // setResponses((prev) => [...prev, response.data])
+                setSingleResponse(response.data)
+            })
+        } catch (error) {
+            setShowSpinner(false)
+            console.log("There was an issue while getting career path suggestions")
+        }
     }
 
-    const feature4 = () => {
+    const Recommendation = async () => {
         setShowTextField(false)
+        setShowSpinner(true)
+        try {
+            await axios.post(`${endpoint}/ResumeAnalysis/getskillsrecommendation`).then((response) => {
+                console.log("RECOMMENDATION: ", response.data)
+                setShowSpinner(false)
+                // setResponses((prev) => [...prev, response.data])
+                setSingleResponse(response.data)
+            })
+        } catch (error) {
+            setShowSpinner(false)
+            console.log("There was an issue while getting career path suggestions")
+        }
     }
 
     const handleFileChange = (event) => {
@@ -41,12 +85,28 @@ const Home = () => {
         }
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        if (selectedFile) {
-            alert(`File selected: ${selectedFile.name}`);
-        } else {
+
+        const formData = new FormData();
+        formData.append('file', selectedFile);
+
+        if (!selectedFile) {
             alert("No file selected.");
+        } else {
+            try {
+                await axios.post(`${endpoint}/ResumeAnalysis/uploadResume`, formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                }).then((response) => {
+                    alert('File uploaded successfully: ' + response.data.message);
+                    setBtnDisabled(false)
+                });
+            } catch (error) {
+                console.error('Error uploading file:', error);
+                alert('File upload failed.');
+            }
         }
     };
 
@@ -62,7 +122,7 @@ const Home = () => {
                                     alt=""
                                     src="/logoBlue.png"
                                     width={30}
-                                    height={30}
+                                    // height={30}
                                     className="d-inline-block align-top"
                                 />
                                 SkillBridge
@@ -74,11 +134,11 @@ const Home = () => {
                 {/* New section below the navbar */}
                 <div className='grid-container' >
                     <Row className='h-100'>
-                        <Col className="d-flex justify-content-center" xs={12} md={4}>
-                            <Upload feature1={feature1} feature2={feature2} feature3={feature3} feature4={feature4} handleFileChange={handleFileChange} handleSubmit={handleSubmit} />
+                        <Col className="d-flex justify-content-center" xs={12} sm={12} md={12} lg={6} xl={4}>
+                            <Upload feature1={Analysis} feature2={feature2} feature3={Career} feature4={Recommendation} handleFileChange={handleFileChange} handleSubmit={handleSubmit} btnDisabled={btnDisabled} setBtnDisabled={setBtnDisabled} />
                         </Col>
-                        <Col className="d-flex justify-content-center" xs={12} md={8}>
-                            <LLM showTextField={showTextField} />
+                        <Col className="d-flex justify-content-center" xs={12} sm={12} md={12} lg={6} xl={8}>
+                            <LLM showTextField={showTextField} responses={responses} showSpinner={showSpinner} singleResponse={singleResponse} />
                         </Col>
                     </Row>
                 </div>
