@@ -3,17 +3,17 @@ import '../../Main.css'
 import { Button, Row, Col, Form } from 'react-bootstrap'
 
 
-const Upload = ({ feature1, feature2, feature3, feature4, handleFileChange, handleSubmit }) => {
+const Upload = ({ feature1, feature2, feature3, feature4, handleFileChange, handleSubmit, btnDisabled }) => {
 
     return (
         <div className="section-left custom-shadow">
             {/* Add content for the first section */}
             <h3>Upload Resume/CV</h3>
             <div className='upload-container' >
-                <div className='upload' >
+                <div className='upload custom-shadow' >
                     <div className='upload-icon-and-button' >
                         <img src='/submit.png' width={100} height={100} />
-                        <Form onSubmit={handleSubmit} className='d-flex flex-column justify-content' >
+                        <Form onSubmit={handleSubmit} className='d-flex flex-column justify-content form-submit' >
                             <Form.Group controlId="formFile" className="mb-1">
                                 <Form.Control type="file" onChange={handleFileChange} />
                             </Form.Group>
@@ -32,19 +32,23 @@ const Upload = ({ feature1, feature2, feature3, feature4, handleFileChange, hand
                             <Col xs={6} className="mb-3">
                                 <Button className="w-100 submit-btn btn-shadow"
                                     onClick={feature1}
-                                >Feature 1</Button>
+                                    disabled={btnDisabled}
+                                >Resume Analysis</Button>
                             </Col>
                             <Col xs={6} className="mb-3">
                                 <Button className="w-100 submit-btn btn-shadow"
-                                    onClick={feature2}>Feature 2</Button>
+                                    onClick={feature2}
+                                    disabled={btnDisabled}>Mock Interview</Button>
                             </Col>
                             <Col xs={6} className="mb-3">
                                 <Button className="w-100 submit-btn btn-shadow"
-                                    onClick={feature3}>Feature 3</Button>
+                                    onClick={feature3}
+                                    disabled={btnDisabled}>Career path suggestion</Button>
                             </Col>
                             <Col xs={6} className="mb-3">
                                 <Button className="w-100 submit-btn btn-shadow"
-                                    onClick={feature4}>Feature 4</Button>
+                                    onClick={feature4}
+                                    disabled={btnDisabled}>Skills Recommendation</Button>
                             </Col>
                         </Row>
                     </div>
