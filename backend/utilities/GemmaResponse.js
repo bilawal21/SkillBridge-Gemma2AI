@@ -1,5 +1,6 @@
 const Groq = require("groq-sdk");
-const groq = new Groq({ apiKey: "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" });
+require('dotenv').config();
+const groq = new Groq({ apiKey: process.env.API_KEY });
 
 const main = async (Content) => {
     try {
