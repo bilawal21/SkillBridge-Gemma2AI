@@ -24,6 +24,7 @@ const CustomCarousel = () => {
                             <h4>Introducing SkillBridge</h4>
                             <p>our AI-powered assistant, designed to accelerate your professional growth and success.</p>
                             <p>Simply upload your resume, and receive expert guidance and tailored recommendations from Gemma-2, our state-of-the-art LLM model, equipped to help you navigate the path to career excellence.</p>
+                            <p><b>Meet the teammates &rarr;</b></p>
                         </div>
                     </Carousel.Item>
 

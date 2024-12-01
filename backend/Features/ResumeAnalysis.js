@@ -20,7 +20,8 @@ exports.analysisControler = async (req, res) => {
             SkillsGaps,
             RecommendedCourse,
             RecommendedCertificates,
-            ReleventProjects
+            ReleventProjects,
+            Type: "Analysis"
         });
 
     }catch (error) {

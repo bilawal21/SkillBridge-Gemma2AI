@@ -1,5 +1,5 @@
 const Groq = require("groq-sdk");
-const groq = new Groq({ apiKey: "" });
+const groq = new Groq({ apiKey: "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" });
 
 const main = async (Content) => {
     try {
@@ -32,4 +32,4 @@ const GemmaResponse = async (Content) => {
     });
 };
 
-module.exports = { main, GemmaResponse};
+module.exports = { main, GemmaResponse };

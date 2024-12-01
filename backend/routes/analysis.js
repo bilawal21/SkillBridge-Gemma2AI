@@ -10,7 +10,7 @@ const career = require('../Features/careerPathSuggestions');
 
 const upload = multer({ storage: Storage });
 
-router.post('/uploadResume', upload.single('resume'), (req, res) => {
+router.post('/uploadResume', upload.single('file'), (req, res) => {
     console.log("File uploaded and saved as 'resume.pdf'");
     res.send("File uploaded successfully!");
 });

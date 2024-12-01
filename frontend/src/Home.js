@@ -12,7 +12,6 @@ const Home = () => {
     const [selectedFile, setSelectedFile] = useState(null);
     const [showTextField, setShowTextField] = useState(false)
     const [btnDisabled, setBtnDisabled] = useState(true)
-    const [responses, setResponses] = useState([])
     const [singleResponse, setSingleResponse] = useState([])
     const [showSpinner, setShowSpinner] = useState(false)
 
@@ -20,11 +19,8 @@ const Home = () => {
         setShowTextField(false)
         setShowSpinner(true)
 
-        console.log("SPINNNNN: ", showSpinner)
         try {
             await axios.post(`${endpoint}/ResumeAnalysis/getanalysis`).then((response) => {
-                console.log("RESPONSE: ", response.data)
-                // setResponses((prev) => [...prev, response.data])
                 setSingleResponse(response.data)
             }).finally(() => {
                 setShowSpinner(false)
@@ -35,18 +31,26 @@ const Home = () => {
         }
     }
 
-    const feature2 = () => {
+    const Mock = async () => {
         setShowTextField(true)
+        setShowSpinner(true)
+        try {
+            await axios.post(`${endpoint}/ResumeAnalysis/getmockinterviews`).then((response) => {
+                setShowSpinner(false)
+                setSingleResponse(response.data)
+            })
+        } catch (error) {
+            setShowSpinner(false)
+            console.log("There was an issue while generating mock interview questions")
+        }
     }
 
     const Career = async () => {
         setShowTextField(false)
         setShowSpinner(true)
         try {
-            await axios.post(`${endpoint}/ResumeAnalysis/suggestCareerPaths`).then((response) => {
-                console.log("CAREER: ", response.data)
+            await axios.post(`${endpoint}/ResumeAnalysis/getcareerpaths`).then((response) => {
                 setShowSpinner(false)
-                // setResponses((prev) => [...prev, response.data])
                 setSingleResponse(response.data)
             })
         } catch (error) {
@@ -60,9 +64,7 @@ const Home = () => {
         setShowSpinner(true)
         try {
             await axios.post(`${endpoint}/ResumeAnalysis/getskillsrecommendation`).then((response) => {
-                console.log("RECOMMENDATION: ", response.data)
                 setShowSpinner(false)
-                // setResponses((prev) => [...prev, response.data])
                 setSingleResponse(response.data)
             })
         } catch (error) {
@@ -74,7 +76,6 @@ const Home = () => {
     const handleFileChange = (event) => {
         const file = event.target.files[0];
         if (file) {
-            // Check MIME type
             if (file.type === 'application/pdf') {
                 setSelectedFile(file);
                 console.log('PDF file uploaded:', file);
@@ -100,7 +101,7 @@ const Home = () => {
                         'Content-Type': 'multipart/form-data',
                     },
                 }).then((response) => {
-                    alert('File uploaded successfully: ' + response.data.message);
+                    alert(response.data);
                     setBtnDisabled(false)
                 });
             } catch (error) {
@@ -135,10 +136,10 @@ const Home = () => {
                 <div className='grid-container' >
                     <Row className='h-100'>
                         <Col className="d-flex justify-content-center" xs={12} sm={12} md={12} lg={6} xl={4}>
-                            <Upload feature1={Analysis} feature2={feature2} feature3={Career} feature4={Recommendation} handleFileChange={handleFileChange} handleSubmit={handleSubmit} btnDisabled={btnDisabled} setBtnDisabled={setBtnDisabled} />
+                            <Upload feature1={Analysis} feature2={Mock} feature3={Career} feature4={Recommendation} handleFileChange={handleFileChange} handleSubmit={handleSubmit} btnDisabled={btnDisabled} setBtnDisabled={setBtnDisabled} />
                         </Col>
                         <Col className="d-flex justify-content-center" xs={12} sm={12} md={12} lg={6} xl={8}>
-                            <LLM showTextField={showTextField} responses={responses} showSpinner={showSpinner} singleResponse={singleResponse} />
+                            <LLM showTextField={showTextField} showSpinner={showSpinner} singleResponse={singleResponse} />
                         </Col>
                     </Row>
                 </div>

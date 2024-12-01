@@ -21,7 +21,8 @@ exports.suggestCareerPaths = async (req, res) => {
 
         return res.status(200).json({
             message: "Career paths suggested successfully",
-            recommendedPaths
+            recommendedPaths,
+            Type: "Career",
         });
     } catch (error) {
         console.error('Error processing resume upload:', error);

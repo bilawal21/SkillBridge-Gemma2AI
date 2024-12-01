@@ -1,4 +1,4 @@
-const generateResponse = require('../utilities/GenerateQuestions');
+const generateResponse = require('./GenerateQuestions');
 const GemmaResponse = require('./GemmaResponse');
 
 const Answers = async (Questions) => {

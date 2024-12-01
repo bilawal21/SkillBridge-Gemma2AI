@@ -35,10 +35,11 @@ exports.RecommendSkills = async (req, res) => {
                     Please tailor your recommendations to my specific experience and career goals.
 
                     Remember to be as specific as possible in your resume and career goals to get the most accurate and relevant recommendations`;
-    
-    const  SkillsRoadMap = await GemmaResponse.main(Prompt);
+
+    const SkillsRoadMap = await GemmaResponse.main(Prompt);
 
     return res.json({
-        SkillsRoadMap
+        SkillsRoadMap,
+        Type: "Recommend"
     })
 };

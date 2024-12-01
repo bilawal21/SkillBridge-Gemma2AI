@@ -7,7 +7,7 @@ const Mock = async (req, res) => {
         const Questions = await generateResponse(resumePath);
 
         const answers = await GetAnswers.Answers(Questions);
-        return res.json({ Questions, answers});
+        return res.json({ Questions, answers, Type: "Mock"});
 
     } catch (error) {
         console.error(error);

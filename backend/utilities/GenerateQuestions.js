@@ -1,5 +1,5 @@
-const PlainTextConversion = require('../utilities/PlainTextConversion');
-const GemmaResponse = require('../utilities/GemmaResponse');
+const PlainTextConversion = require('./PlainTextConversion');
+const GemmaResponse = require('./GemmaResponse');
 
 
 const GenerateQuestions = async (resumePath) => {
