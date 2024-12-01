@@ -46,7 +46,7 @@ const CustomCarousel = () => {
                                         Ahmad Raza
                                     </div>
                                     <div>
-                                        <a href="https://www.linkedin.com/in/your-profile" target="_blank" rel="noopener noreferrer">
+                                        <a href="https://www.linkedin.com/in/sarah-khan-48274a315/" target="_blank" rel="noopener noreferrer">
                                             <FaLinkedin size={30} color="#0077b5" />
                                         </a>
                                         Luna
