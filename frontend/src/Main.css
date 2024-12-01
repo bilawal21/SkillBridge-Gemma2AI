@@ -78,8 +78,7 @@ body {
 
 .empty-response {
   border: 3px solid black;
-  padding: 30px;
-  width: 50%;
+  padding: 12px;
 }
 
 .message-container {

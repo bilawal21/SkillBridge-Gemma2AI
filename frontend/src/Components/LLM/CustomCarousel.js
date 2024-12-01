@@ -15,7 +15,7 @@ const CustomCarousel = () => {
         <div
             className='empty-response-container'
         >
-            <div className='empty-response custom-shadow' >
+            <div className='empty-response custom-shadow col-12 col-sm-12 col-md-10 col-lg-8 col-xl-6' >
                 <Carousel activeIndex={index} onSelect={handleSelect} interval={null}
                     className='Carousel-container'
                 >
