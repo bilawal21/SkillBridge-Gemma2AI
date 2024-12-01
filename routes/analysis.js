@@ -4,6 +4,7 @@ const multer = require('multer');
 const analysisController = require('../Features/ResumeAnalysis');
 const SkillsRecommend = require('../Features/SkillsRecommendation');
 const Storage = require('../utilities/FileStorage');
+const mockInter = require('../Features/MockInterviews');
 
 const upload = multer({ storage: Storage });
 
@@ -13,7 +14,8 @@ router.post('/uploadResume', upload.single('resume'), (req, res) => {
 });
 
 
-router.post('/getanalysis', analysisController.analysisControler);
-router.post('/getskillsrecommendation', SkillsRecommend.RecommendSkills);
+router.get('/getanalysis', analysisController.analysisControler);
+router.get('/getskillsrecommendation', SkillsRecommend.RecommendSkills);
+router.get('/getmockinterview', mockInter);
 
 module.exports = router;

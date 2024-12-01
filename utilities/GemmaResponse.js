@@ -1,5 +1,5 @@
 const Groq = require("groq-sdk");
-const groq = new Groq({ apiKey: "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" });
+const groq = new Groq({ apiKey: "" });
 
 const main = async (Content) => {
     try {

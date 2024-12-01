@@ -41,6 +41,4 @@ exports.RecommendSkills = async (req, res) => {
     return res.json({
         SkillsRoadMap
     })
-
-
 };
